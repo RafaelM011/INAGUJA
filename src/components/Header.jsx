@@ -12,11 +12,11 @@ export const Header = () => {
             </div>
             <div className="bg-secondary w-screen">
                 <div className="w-inherit flex flex-col md:flex-row place-content-around py-1 bg-primary rounded-tl-full rounded-br-full md:border-x-2 md:border-white">
-                    <Link to='/catalogo_bienes'>
-                        <button className="py-1 text-white border-b-2 md:border-b-0 border-white text-sm md:text-md lg:text-lg"> CATALOGO DE BIENES Y SERVICIOS </button>
+                    <Link to='/catalogo_bienes' className="py-1 text-white border-b-2 md:border-b-0 border-white text-center text-sm md:text-md lg:text-lg hover:scale-90">
+                        <button className=""> CATALOGO DE BIENES Y SERVICIOS </button>
                     </Link>
-                    <Link to='/catalogo_presupuestario'>
-                        <button className="py-1 text-white text-sm md:text-md lg:text-lg"> CATALOGO DE PRESUPUESTO </button>
+                    <Link to='/catalogo_presupuestario' className="py-1 text-center text-white text-sm md:text-md lg:text-lg hover:scale-90">
+                        <button className=""> CATALOGO DE PRESUPUESTO </button>
                     </Link>
                 </div>
             </div>
