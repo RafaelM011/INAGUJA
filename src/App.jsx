@@ -1,9 +1,14 @@
 import React from "react"
+import { Route, Routes } from "react-router"
+import { Header } from "./components/Header"
 
 export default function App() {
   return (
-    <div className="">
-        <h1> HOLA MAMAN</h1>
-    </div>
+    <>
+      <Header/>
+      <Routes>
+        {/* <Route path='/' element={}/> */}
+      </Routes>
+    </>
   )
 }
