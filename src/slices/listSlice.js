@@ -1,12 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import XLSX from 'xlsx';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const file = XLSX.readFile('Guia_Con_Auxiliar.xlsx');  
-const sheets = file.SheetNames;
-let data = XLSX.utils.sheet_to_json(file.Sheets[sheets[0]]);
+const serveURl = 'http://localhost:4000/';
 
 const initialState = {
-    items: data
+    items: [
+
+    ]
 }
 
 const listSlice = createSlice({
@@ -14,7 +13,20 @@ const listSlice = createSlice({
     initialState,
     reducers: {
         
+    },
+    extraReducers(builder){
+        builder
+            .addCase(fetchData.fulfilled, (state,action) => {
+                state.items = action.payload;
+            })
     }
 })
 
+export const fetchData = createAsyncThunk('list/fetchData', async (range, {rejectWithValue}) => {
+    const response = await 
+    fetch(serveURl + 'getdata').then(res => res.json())
+    return response;
+})
+
+export const selectList = state => state.list.items;
 export default listSlice.reducer;
