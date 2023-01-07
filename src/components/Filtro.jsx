@@ -15,11 +15,11 @@ export default function Filtro() {
                 <button className="w-1/5 min-w-[115px] text-white border-2 border-white rounded-xl p-2 hover:scale-[95%] hover:border-secondary"> Producto uso final </button>
             </div>
             <h1 className="text-white text-xl font-semibold px-4 py-2 mt-2"> Segmento - </h1>
-            <Select element='segmento'/>
+            <Select element='el segmento'/>
             <h1 className="text-white text-xl font-semibold px-4 py-2 mt-2"> Familia - </h1>
-            <Select element='familia'/>
+            <Select element='la familia'/>
             <h1 className="text-white text-xl font-semibold px-4 py-2 mt-2"> Clase - </h1>
-            <Select element='clase'/>
+            <Select element='la clase'/>
         </div>
     )
 }

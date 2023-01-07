@@ -35,4 +35,5 @@ export const fetchData = createAsyncThunk('list/fetchData', async (range, {rejec
 
 export const { changeSelectedItem } = listSlice.actions;
 export const selectList = state => state.list.items;
+export const selectSelected = state => state.list.selected;
 export default listSlice.reducer;
