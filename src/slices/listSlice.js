@@ -5,14 +5,19 @@ const serveURl = 'http://localhost:4000/';
 const initialState = {
     items: [
 
-    ]
+    ],
+    selected: {
+
+    }
 }
 
 const listSlice = createSlice({
     name: "list",
     initialState,
     reducers: {
-        
+        changeSelectedItem(state,action){
+            state.selected = action.payload;
+        }
     },
     extraReducers(builder){
         builder
@@ -28,5 +33,6 @@ export const fetchData = createAsyncThunk('list/fetchData', async (range, {rejec
     return response;
 })
 
+export const { changeSelectedItem } = listSlice.actions;
 export const selectList = state => state.list.items;
 export default listSlice.reducer;
