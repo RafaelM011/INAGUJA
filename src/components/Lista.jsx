@@ -31,7 +31,12 @@ export default function Lista() {
     },[items])
 
     useEffect(() => {
-        if(middleFilter.length > 0) setFilteredItems(middleFilter)
+        if(middleFilter.length > 0) {
+            const target = document.getElementById('filterInput');
+            const value = target.value;
+            if (value !== "") updateFilteredItems({target: {value}});
+            else setFilteredItems(middleFilter)
+        }
     },[middleFilter])
 
     useEffect(()=>{
@@ -94,6 +99,7 @@ export default function Lista() {
     }
 
     const updateFilteredItems = (e) => {
+        console.log('here')
         const target = e.target;
         const value = target.value;
         const filtered = middleFilter.filter(middle => {
@@ -111,7 +117,7 @@ export default function Lista() {
     return(
         <div className="h-[550px] w-full md:w-1/2 bg-primary">
             <h1 className="text-white font-semibold text-xl px-6 py-4"> Descripción, sinonimo o código</h1>
-            <input className="ml-6 w-4/5 h-[28px] outline-secondary rounded-xl px-4" type="text" placeholder="Codigo" onChange={updateFilteredItems}/> 
+            <input id="filterInput" className="ml-6 w-4/5 h-[28px] outline-secondary rounded-xl px-4" type="text" placeholder="Codigo" onChange={updateFilteredItems}/> 
             <img src={search} alt="search" className="inline w-[28px] ml-4 cursor-pointer hover:scale-125"/>
             <div id="container" className="w-4/5 h-[400px] ml-6 mt-4 overflow-auto scrollbar-hide border-2 border-white rounded-xl py-4 px-2">
                 {render.slice(0,renderAmount)}
