@@ -9,9 +9,9 @@ const initialState = {
         materia: false,
         producto: false
     },
-    segmento: "",
-    familia: "",
-    clase: ""
+    segmento: "Seleccione el segmento",
+    familia: "Seleccione la familia",
+    clase: "Seleccione la clase"
 }
 
 const filterSlice = createSlice({
@@ -20,12 +20,12 @@ const filterSlice = createSlice({
     reducers:{
         setSegmento(state,action){
             state.segmento = action.payload;
-            state.familia = "";
-            state.clase = "";
+            state.familia = "Seleccione la familia";
+            state.clase = "Seleccione la clase";
         },
         setFamilia(state,action){
             state.familia = action.payload;
-            state.clase = "";
+            state.clase = "Seleccione la clase";
         },
         setClase(state,action){
             state.clase = action.payload;
@@ -34,7 +34,10 @@ const filterSlice = createSlice({
             switch(action.payload){
                 case "Bienes":{
                     state.options.bienes = true;
-                    state.options.servicios = false;  
+                    state.options.servicios = false; 
+                    state.segmento = "Seleccione el segmento";
+                    state.familia = "Seleccione la familia";
+                    state.clase = "Seleccione la clase";
                     break;  
                 }
                 case "Servicios":{
@@ -44,6 +47,9 @@ const filterSlice = createSlice({
                     state.options.equipo = false;  
                     state.options.materia = false;  
                     state.options.producto = false; 
+                    state.segmento = "Seleccione el segmento";
+                    state.familia = "Seleccione la familia";
+                    state.clase = "Seleccione la clase";
                     break;  
                 }
                 case "Componente / Suministro":{
@@ -51,6 +57,9 @@ const filterSlice = createSlice({
                     state.options.equipo = false;  
                     state.options.materia = false;  
                     state.options.producto = false;  
+                    state.segmento = "Seleccione el segmento";
+                    state.familia = "Seleccione la familia";
+                    state.clase = "Seleccione la clase";
                     break;  
                 }
                 case "Equipo industrial":{
@@ -58,6 +67,9 @@ const filterSlice = createSlice({
                     state.options.equipo = true;  
                     state.options.materia = false;  
                     state.options.producto = false;  
+                    state.segmento = "Seleccione el segmento";
+                    state.familia = "Seleccione la familia";
+                    state.clase = "Seleccione la clase";
                     break;  
                 }
                 case "Materia prima":{
@@ -65,13 +77,19 @@ const filterSlice = createSlice({
                     state.options.equipo = false;  
                     state.options.materia = true;  
                     state.options.producto = false;  
+                    state.segmento = "Seleccione el segmento";
+                    state.familia = "Seleccione la familia";
+                    state.clase = "Seleccione la clase";
                     break; 
                 }
                 case "Producto uso final":{
                     state.options.componente = false;
                     state.options.equipo = false;  
                     state.options.materia = false;  
-                    state.options.producto = true;  
+                    state.options.producto = true; 
+                    state.segmento = "Seleccione el segmento";
+                    state.familia = "Seleccione la familia";
+                    state.clase = "Seleccione la clase";
                     break;  
                 }
                 default:   
