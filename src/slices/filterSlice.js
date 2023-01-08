@@ -24,10 +24,13 @@ const filterSlice = createSlice({
             state.clase = "Seleccione la clase";
         },
         setFamilia(state,action){
+            state.segmento = action.payload.slice(0,2) + "000000";
             state.familia = action.payload;
             state.clase = "Seleccione la clase";
         },
         setClase(state,action){
+            state.segmento = action.payload.slice(0,2) + "000000";
+            state.familia = action.payload.slice(0,4) + "0000";
             state.clase = action.payload;
         },
         setOptions(state,action){
@@ -99,6 +102,7 @@ const filterSlice = createSlice({
 })
 
 export const { setSegmento, setFamilia, setClase, setOptions} = filterSlice.actions;
+export const selectFilter = state => state.filter;
 export const selectFilterOptions = state => state.filter.options;
 export const selectSegmento = state => state.filter.segmento;
 export const selectFamilia = state => state.filter.familia;

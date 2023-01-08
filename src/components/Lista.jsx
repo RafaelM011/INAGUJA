@@ -4,11 +4,14 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import search from "../assets/search.png";
 import { selectList } from "../slices/listSlice";
+import { selectFilter } from "../slices/filterSlice";
 import { Item } from "./Item";
 
 export default function Lista() {
     const items = useSelector(selectList);
+    const filterOptions = useSelector(selectFilter)
     const [filteredItems, setFilteredItems] = useState([]);
+    const [middleFilter, setMiddleFilter] = useState([]);
     const [renderAmount, setRenderAmount] = useState(100);
     const [observedElement, setObservedElement] = useState();
     const render = filteredItems.map((item,i) => {
@@ -24,12 +27,66 @@ export default function Lista() {
     });
 
     useEffect(() => {
-        if(items.length > 0) setFilteredItems(items)
+        if(items.length > 0) setMiddleFilter(items)
     },[items])
+
+    useEffect(() => {
+        if(middleFilter.length > 0) setFilteredItems(middleFilter)
+    },[middleFilter])
 
     useEffect(()=>{
         if(observedElement) lastItemObserver.observe(observedElement)
     },[observedElement])
+
+    useEffect(() => {
+        let filtered
+        if(filterOptions.clase !== "Seleccione la clase"){
+            filtered = items.filter( item => filterOptions.clase.slice(0,6) === item['Código Producto'].toString().slice(0,6))
+            return setMiddleFilter(filtered)
+        }
+        if(filterOptions.familia !== "Seleccione la familia"){
+            filtered = items.filter( item => filterOptions.familia.slice(0,4) === item['Código Producto'].toString().slice(0,4))
+            return setMiddleFilter(filtered)
+        }
+        if(filterOptions.segmento !== "Seleccione el segmento"){
+            filtered = items.filter( item => filterOptions.segmento.slice(0,2) === item['Código Producto'].toString().slice(0,2))
+            return setMiddleFilter(filtered)
+        }
+        if(filterOptions.options.servicios === true){
+            return defineRange("70","95")
+        }
+        if(filterOptions.options.componente === true){
+            return defineRange('30','42')
+        }
+        if(filterOptions.options.equipo === true){
+            return defineRange('20','30')            
+        }
+        if(filterOptions.options.materia === true){
+            return defineRange('10','20')
+        }
+        if(filterOptions.options.producto === true){
+            return defineRange('42','70')
+        }
+        return defineRange("0","20")
+    },[filterOptions])
+
+    function defineRange(begin, finalize){
+        let filtered, start, end;
+        items.some((item,i) => {
+            if(item['Código Producto'].toString().slice(0,2) === begin){
+                start = i;
+                return true;
+            }
+        })
+        items.some((item,i) => {
+            if(item['Código Producto'].toString().slice(0,2) === finalize){
+                end = i;
+                return true;
+            }
+        })
+        filtered = items.slice(start,end)
+        setMiddleFilter(filtered)
+    }
 
     function updateElement(id){
         const element = document.getElementById(id);
@@ -39,15 +96,14 @@ export default function Lista() {
     const updateFilteredItems = (e) => {
         const target = e.target;
         const value = target.value;
-        const filtered = items.filter(item => {
+        const filtered = middleFilter.filter(middle => {
             return (
-                item['Código Producto'].toString().includes(value) || 
-                item["Descripción Producto"].toLowerCase().includes(value.toLowerCase()) 
+                middle['Código Producto'].toString().includes(value) || 
+                middle["Descripción Producto"].toLowerCase().includes(value.toLowerCase()) 
                 // item["Definición de Producto"].toLowerCase().includes(value.toLowerCase())    
             )
         })
         document.getElementById('container').scrollTop = 0;
-        
         setFilteredItems(filtered)
         setRenderAmount(100)
     }

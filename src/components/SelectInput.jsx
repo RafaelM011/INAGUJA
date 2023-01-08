@@ -35,89 +35,40 @@ export default function Selector(props){
         //Materia 10-15 Equipos 20-27 Componentes 30-41 Producto 42-60 Servicio 70-94
         let filtered, start, end;
         if(filterOptions.servicios === true){
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '70'){
-                    start = i;
-                    return true;
-                }
-            })
-            filtered = list.slice(start,list.length+1)
-            setFiltered(filtered)
+            return defineRange("70","95")
         }
         else if(filterOptions.componente === true){
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '30'){
-                    start = i;
-                    return true;
-                }
-            })
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '42'){
-                    end = i;
-                    return true;
-                }
-            })
-            filtered = list.slice(start,end)
-            setFiltered(filtered)
+            return defineRange("30","42")
         }
         else if(filterOptions.equipo === true){
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '20'){
-                    start = i;
-                    return true;
-                }
-            })
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '30'){
-                    end = i;
-                    return true;
-                }
-            })
-            filtered = list.slice(start,end)
-            setFiltered(filtered)
+            return defineRange("20","30")
         }
         else if(filterOptions.materia === true){
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '10'){
-                    start = i;
-                    return true;
-                }
-            })
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '20'){
-                    end = i;
-                    return true;
-                }
-            })
-            filtered = list.slice(start,end)
-            setFiltered(filtered)
+            return defineRange("10","20")
         }
         else if(filterOptions.producto === true){
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '42'){
-                    start = i;
-                    return true;
-                }
-            })
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '70'){
-                    end = i;
-                    return true;
-                }
-            })
-            filtered = list.slice(start,end)
-            setFiltered(filtered)
-        }else{
-            list.some((item,i) => {
-                if(item.Segmento.slice(0,2) === '70'){
-                    end = i;
-                    return true;
-                }
-            })
-            filtered = list.slice(0,end)
-            setFiltered(filtered)
+            return defineRange("42","70")
         }
+        return defineRange("0","20")
     },[filterOptions])
+
+    function defineRange(begin, finalize){
+        let filtered, start, end;
+        list.some((item,i) => {
+            if(item.Segmento.slice(0,2) === begin){
+                start = i;
+                return true;
+            }
+        })
+        list.some((item,i) => {
+            if(item.Segmento.slice(0,2) === finalize){
+                end = i;
+                return true;
+            }
+        })
+        filtered = list.slice(start,end)
+        setFiltered(filtered)
+    }
 
     useEffect(() => {
         let filtered;
@@ -126,7 +77,7 @@ export default function Selector(props){
             setFiltered(filtered)
         }
         if(id === 3){
-            if( familia !== ""){
+            if( familia !== "Seleccione la familia"){
                 filtered = list.filter(item => item.Segmento.slice(0,4) === familia.slice(0,4))
                 setFiltered(filtered)
             }
