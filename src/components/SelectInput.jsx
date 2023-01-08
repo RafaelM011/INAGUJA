@@ -1,18 +1,18 @@
 import React from "react";
 import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import { selectClases, selectFamilias, selectSegmentos } from "../slices/listSlice";
+import { selectFamilia, selectFilterOptions, selectSegmento, setClase, setFamilia, setSegmento } from "../slices/filterSlice";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Selector(props){
-    const {element} = props;
-    const options = [
-        {label: 'Opcion 1', value:'Opcion 1'},
-        {label: 'Opcion 2', value:'Opcion 2'},
-        {label: 'Opcion 3', value:'Opcion 3'},
-        {label: 'Opcion 4', value:'Opcion 4'},
-        {label: 'Opcion 5', value:'Opcion 5'},
-        {label: 'Opcion 6', value:'Opcion 6'},
-        {label: 'Opcion 7', value:'Opcion 7'},
-        {label: 'Opcion 8', value:'Opcion 8'},
-    ] 
+    const {element, id} = props;
+    const dispatch = useDispatch();
+    const segmento = useSelector(selectSegmento);
+    const familia = useSelector(selectFamilia);
+    const list = id === 1 ? useSelector(selectSegmentos) : id === 2 ? useSelector(selectFamilias) : useSelector(selectClases);
+    const [filtered, setFiltered] = useState(list); 
     const styles = {
         menuList: (base) => ({
           ...base,
@@ -20,9 +20,40 @@ export default function Selector(props){
             display: "hidden"
           }
         })
-      }
+    }
+    const options = filtered.map(element => {
+        return {label: element.Segmento , value: element.Segmento }
+    }) 
+
+    useEffect(() => {
+        setFiltered(list)
+    },[list])
+
+    useEffect(() => {
+        let filtered;
+        if(id === 2){
+            filtered = list.filter( item => item.Segmento.slice(0,2) === segmento.slice(0,2))
+            setFiltered(filtered)
+        }
+        if(id === 3){
+            if( familia !== ""){
+                filtered = list.filter(item => item.Segmento.slice(0,4) === familia.slice(0,4))
+                setFiltered(filtered)
+            }
+            else{
+                filtered = list.filter( item => item.Segmento.slice(0,2) === segmento.slice(0,2))
+                setFiltered(filtered) 
+            }
+        }
+    },[segmento,familia])
+
+    const updateEntry = (option) => {
+        if(id === 1 ) dispatch(setSegmento(option.value))
+        else if(id === 2) dispatch(setFamilia(option.value))
+        else dispatch(setClase(option.value))
+    }
 
     return(
-        <Select defaultValue={{label:`Seleccione ${element}`, label:`Seleccione ${element}`}} options={options} maxMenuHeight={200} styles={styles} className="w-4/5 ml-4"/>
+        <Select defaultValue={{label:`Seleccione ${element}`, value:`Seleccione ${element}`}} options={options} maxMenuHeight={200} styles={styles} onChange={updateEntry} className="w-4/5 ml-4"/>
     )
 }
