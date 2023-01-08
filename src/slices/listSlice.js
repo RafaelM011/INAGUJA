@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const serveURl = 'http://localhost:4000/';
+const serveURl = process.env.NODE_ENV === 'production' ? 'https://inaguja-server-production.up.railway.app/' : 'http://localhost:4000/';
 
 const initialState = {
     items: [
