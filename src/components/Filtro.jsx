@@ -1,5 +1,5 @@
 import React from "react";
-import Select from "./SelectInput";
+import Selector from "./SelectInput";
 
 export default function Filtro() {
     return(
@@ -15,11 +15,11 @@ export default function Filtro() {
                 <button className="w-1/5 min-w-[115px] text-white border-2 border-white rounded-xl p-2 hover:scale-[95%] hover:border-secondary"> Producto uso final </button>
             </div>
             <h1 className="text-white text-xl font-semibold px-4 py-2 mt-2"> Segmento - </h1>
-            <Select element='el segmento'/>
+            <Selector element='el segmento'/>
             <h1 className="text-white text-xl font-semibold px-4 py-2 mt-2"> Familia - </h1>
-            <Select element='la familia'/>
+            <Selector element='la familia'/>
             <h1 className="text-white text-xl font-semibold px-4 py-2 mt-2"> Clase - </h1>
-            <Select element='la clase'/>
+            <Selector element='la clase'/>
         </div>
     )
 }
