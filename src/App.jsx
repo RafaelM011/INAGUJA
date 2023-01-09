@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import { Header } from "./components/Header"
 import Bienes from "./pages/catalogo_bienes"
 import { fetchData } from "./slices/listSlice"
+import GenerarOrden from "./pages/generar_orden"
 
 export default function App() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function App() {
       <Header/>
       <Routes>
         <Route path='/catalogo_bienes' element={<Bienes/>}/>
+        <Route path='/generar_orden' element={<GenerarOrden/>}/>
       </Routes>
     </>
   )

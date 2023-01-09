@@ -18,6 +18,9 @@ export const Header = () => {
                     <Link to='/catalogo_presupuestario' className="py-1 text-center text-white text-sm md:text-md lg:text-lg hover:scale-90">
                         <button className=""> CATALOGO DE PRESUPUESTO </button>
                     </Link>
+                    <Link to='/generar_orden' className="py-1 text-center text-white text-sm md:text-md lg:text-lg hover:scale-90">
+                        <button className=""> GENERAR ORDEN </button>
+                    </Link>
                 </div>
             </div>
         </div>
