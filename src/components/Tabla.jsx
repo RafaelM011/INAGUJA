@@ -7,7 +7,7 @@ export default function Tabla(){
     const [renderAmount, setRenderAmount] = useState(1);
     const render = [];
     for(let i = 0; i < renderAmount;i++){
-        render.push(<OrderItem/>)
+        render.push(<OrderItem key={i} id={i}/>)
     }
 
     return(

@@ -2,15 +2,102 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const serverURl = process.env.NODE_ENV === 'production' ? 'https://inaguja-server-production.up.railway.app/' : 'http://localhost:4000/';
 
-const initialState = [
-
-]
+const initialState = {
+    datos_generales: {
+        proceso: "",
+        fecha: "",
+        tipo: "",
+        numero: "",
+        descripcion: "",
+        modalidad: "",
+    },
+    datos_proveedor: {
+        razon: "",
+        rnc: "",
+        nombre: "",
+        domicilio: "",   
+        telefono: "" 
+    },
+    datos_contrato:{
+        anticipo: null,
+        forma_de_pago: "",
+        plazo: null,
+        monto: null,
+        moneda: "DOP"
+    },
+    datos_tabla: []
+}
 
 const orderSlice = createSlice({
     name: "order",
     initialState,
     reducers: {
-
+        addNewData(state,action){
+            if(action.payload.id > state.datos_tabla.length - 1) state.datos_tabla.push(action.payload)
+        },
+        defineDatosGenerales(state,action){
+            const {nombre, info} = action.payload;
+            switch(nombre){
+                case "proceso":
+                    state.datos_generales.proceso = info;
+                    break;
+                case "fecha":
+                    state.datos_generales.fecha = 'Fecha de emision: ' + info;
+                    break;
+                case "tipo":
+                    state.datos_generales.tipo = info;
+                    break;
+                case "numero":
+                    state.datos_generales.numero = info;
+                    break;
+                case "descripcion":
+                    state.datos_generales.descripcion = info;
+                    break;
+                case "modalidad":
+                    state.datos_generales.modalidad = info;
+                    break;  
+                default:              
+            }
+        },
+        defineDatosProveedor(state,action){
+            const {nombre, info} = action.payload;
+            switch(nombre){
+                case "razon":
+                    state.datos_proveedor.razon = info;
+                    break;
+                case "rnc":
+                    state.datos_proveedor.rnc = info;
+                    break;
+                case "nombre":
+                    state.datos_proveedor.nombre = info;
+                    break;
+                case "domicilio":
+                    state.datos_proveedor.domicilio = info;
+                    break;
+                case "telefono":
+                    state.datos_proveedor.telefono = info;
+                    break;
+                default:                
+            }
+        },
+        defineDatosContrato(state,action){
+            const {nombre, info} = action.payload;
+            switch(nombre){
+                case "anticipo":
+                    state.datos_contrato.anticipo = info;
+                    break;
+                case "forma_de_pago":
+                    state.datos_contrato.forma_de_pago = info;
+                    break;
+                case "plazo":
+                    state.datos_contrato.plazo = info;
+                    break;
+                case "monto":
+                    state.datos_contrato.monto = info;
+                    break;
+                default:                
+            }
+        },
     },
     extraReducers(builder){
         builder
@@ -21,14 +108,16 @@ const orderSlice = createSlice({
 })
 
 export const createOrder = createAsyncThunk('order/createorder', async (orderData) => {
-    const response = await
-    fetch(serverURl + 'createorder', {
-        method: 'put',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(orderData)
-    })
-    .then(res => res.json())
-    console.log(response);
+    // const response = await
+    // fetch(serverURl + 'createorder', {
+    //     method: 'put',
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: JSON.stringify(orderData)
+    // })
+    // .then(res => res.json())
+    console.log(orderData);
 })
 
+export const { addNewData, defineDatosGenerales, defineDatosProveedor, defineDatosContrato } = orderSlice.actions;
+export const selectDatos = state => state.order.datos_tabla;
 export default orderSlice.reducer;

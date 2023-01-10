@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeSelectedItem } from "../slices/listSlice";
+import { addNewData, selectDatos } from "../slices/orderSlice";
 
 export const Item = (props) => {
     const {data, update, render, index} = props;
@@ -30,7 +31,25 @@ export const Item = (props) => {
     )
 }
 
-export const OrderItem = () => {
+export const OrderItem = (props) => {
+    const {id} = props;
+    const dispatch = useDispatch();
+    const datos = useSelector(selectDatos);
+    
+    useEffect(() => {
+        const newData = {
+            id,
+            item: "",
+            codigo: "",
+            descripcion: "",
+            cantidad: null,
+            unidad: "",
+            precio: null,
+            itbis: null,
+        }
+        dispatch(addNewData(newData))
+    },[])
+
     return(
         <div className="flex place-content-around my-4 py-2 border-l-2 border-r-2 border-dashed">
             <input className="text-white outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Item"/>
