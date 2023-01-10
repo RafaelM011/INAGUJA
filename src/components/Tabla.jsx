@@ -1,13 +1,21 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import add from "../assets/add.png";
+import { createOrder, selectDatos } from "../slices/orderSlice";
 import { OrderItem } from "./Item";
 
 export default function Tabla(){
     const [renderAmount, setRenderAmount] = useState(1);
+    const dispatch = useDispatch();
+    const orderData = useSelector(selectDatos);
     const render = [];
     for(let i = 0; i < renderAmount;i++){
         render.push(<OrderItem key={i} id={i}/>)
+    }
+
+    const generateOrder = () => {
+        dispatch(createOrder(orderData));
     }
 
     return(
@@ -24,7 +32,10 @@ export default function Tabla(){
             <div className="mt-4 h-[350px] overflow-auto border-y-2">
                 {render}
             </div>
-            <img className="w-[25px] h-[25px] cursor-pointer mt-4 ml-4" src={add} alt="add element" onClick={() => setRenderAmount(prevState => prevState + 1)}/>
+            <div className="flex place-content-around items-center">
+                <img className="w-[25px] h-[25px] cursor-pointer mt-4 ml-4" src={add} alt="add element" onClick={() => setRenderAmount(prevState => prevState + 1)}/>
+                <button className="text-white text-xl font-semibold mt-4 border-2 rounded-full p-2 hover:border-secondary active:scale-90 active:text-secondary" onClick={generateOrder}> Generar Orden </button>
+            </div>
         </div>
     )
 }

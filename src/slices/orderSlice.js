@@ -98,6 +98,33 @@ const orderSlice = createSlice({
                 default:                
             }
         },
+        defineDatosTabla(state,action){
+            const {id, nombre, info} = action.payload;
+            switch(nombre){
+                case "item":
+                    state.datos_tabla[id].item = info;
+                    break;
+                case "codigo":
+                    state.datos_tabla[id].codigo = info;
+                    break;
+                case "descripcion":
+                    state.datos_tabla[id].descripcion = info;
+                    break;
+                case "cantidad":
+                    state.datos_tabla[id].cantidad = info;
+                    break;
+                case "unidad":
+                    state.datos_tabla[id].unidad = info;
+                    break;  
+                case "precio":
+                    state.datos_tabla[id].precio = info;
+                    break;
+                case "itbis":
+                    state.datos_tabla[id].itbis = info;
+                    break;  
+                default:                
+            }
+        },
     },
     extraReducers(builder){
         builder
@@ -108,16 +135,16 @@ const orderSlice = createSlice({
 })
 
 export const createOrder = createAsyncThunk('order/createorder', async (orderData) => {
-    // const response = await
-    // fetch(serverURl + 'createorder', {
-    //     method: 'put',
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: JSON.stringify(orderData)
-    // })
-    // .then(res => res.json())
-    console.log(orderData);
+    const response = await
+    fetch(serverURl + 'createorder', {
+        method: 'put',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(orderData)
+    })
+    .then(res => res.json())
+    console.log(response);
 })
 
-export const { addNewData, defineDatosGenerales, defineDatosProveedor, defineDatosContrato } = orderSlice.actions;
-export const selectDatos = state => state.order.datos_tabla;
+export const { addNewData, defineDatosGenerales, defineDatosProveedor, defineDatosContrato, defineDatosTabla } = orderSlice.actions;
+export const selectDatos = state => state.order;
 export default orderSlice.reducer;
