@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const serverURl = process.env.NODE_ENV === 'production' ? 'https://inaguja-server-production.up.railway.app/' : 'http://localhost:4000/';
+const serverURL = process.env.NODE_ENV === 'production' ? 'https://inaguja-server-production.up.railway.app/' : 'http://localhost:4000/';
 
 const initialState = {
     datos_generales: {
@@ -135,14 +135,18 @@ const orderSlice = createSlice({
 })
 
 export const createOrder = createAsyncThunk('order/createorder', async (orderData) => {
+    const download = document.getElementById('anchor');
     const response = await
-    fetch(serverURl + 'createorder', {
+    fetch(serverURL + 'createorder', {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(orderData)
     })
-    .then(res => res.json())
-    console.log(response);
+    .then(res => {
+        download.click();
+        res.json()
+    })
+
 })
 
 export const { addNewData, defineDatosGenerales, defineDatosProveedor, defineDatosContrato, defineDatosTabla } = orderSlice.actions;
