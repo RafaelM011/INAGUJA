@@ -29,3 +29,17 @@ export const Item = (props) => {
         </details>
     )
 }
+
+export const OrderItem = () => {
+    return(
+        <div className="flex place-content-around my-4 py-2 border-l-2 border-r-2 border-dashed">
+            <input className="text-white outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Item"/>
+            <input className="text-white outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Código"/>
+            <input className="text-white outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Descripción"/>
+            <input className="text-white outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Cantidad"/>
+            <input className="text-white outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Unidad"/>
+            <input className="text-white outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Precio"/>
+            <input className="text-white outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="ITBIS"/>
+        </div>
+    )
+}

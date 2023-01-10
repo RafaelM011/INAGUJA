@@ -4,7 +4,7 @@ import Tabla from "../components/Tabla";
 
 export default function GenerarOrden(){
     return(
-        <div>
+        <div className="">
             <Datos/>
             <Tabla/>
         </div>
