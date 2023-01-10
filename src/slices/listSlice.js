@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const serveURl = process.env.NODE_ENV === 'production' ? 'https://inaguja-server-production.up.railway.app/' : 'http://localhost:4000/';
+const serverURl = process.env.NODE_ENV === 'production' ? 'https://inaguja-server-production.up.railway.app/' : 'http://localhost:4000/';
 
 const initialState = {
     items: [
@@ -41,7 +41,7 @@ const listSlice = createSlice({
 
 export const fetchData = createAsyncThunk('list/fetchData', async (range, {rejectWithValue}) => {
     const response = await 
-    fetch(serveURl + 'getdata').then(res => res.json())
+    fetch(serverURl + 'getdata').then(res => res.json())
     return response;
 })
 
