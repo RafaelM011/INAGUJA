@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { generatePdf } from "./pdf";
 
 const serverURL = process.env.NODE_ENV === 'production' ? 'https://inaguja-server-production.up.railway.app/' : 'http://localhost:4000/';
 
@@ -42,7 +43,7 @@ const orderSlice = createSlice({
                     state.datos_generales.proceso = info;
                     break;
                 case "fecha":
-                    state.datos_generales.fecha = 'Fecha de emision: ' + info;
+                    state.datos_generales.fecha = info;
                     break;
                 case "tipo":
                     state.datos_generales.tipo = info;
@@ -135,18 +136,19 @@ const orderSlice = createSlice({
 })
 
 export const createOrder = createAsyncThunk('order/createorder', async (orderData) => {
-    const download = document.getElementById('anchor');
-    const response = await
-    fetch(serverURL + 'createorder', {
-        method: 'put',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(orderData)
-    })
-    .then(res => {
-        download.click();
-        res.json()
-    })
-
+    // const download = document.getElementById('anchor');
+    // const response = await
+    // fetch(serverURL + 'generatepdf', {
+    //     method: 'put',
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: JSON.stringify(orderData)
+    // })
+    // .then(res => {
+    //     download.click();
+    //     res.json()
+    // })
+    // console.log(response)
+    generatePdf(orderData);
 })
 
 export const { addNewData, defineDatosGenerales, defineDatosProveedor, defineDatosContrato, defineDatosTabla } = orderSlice.actions;
