@@ -119,7 +119,7 @@ export default function Datos(){
                 <input name="plazo" className="w-8/12 h-[30px] outline-none rounded-xl px-4" type='number' placeholder="Plazo" onBlur={updateDatosContrato}/>
                 
                 <h1 className="text-white font-medium">Monto</h1>
-                <input name="monto" className="w-8/12 h-[30px] outline-none rounded-xl px-4" type='number' placeholder="Monto" onBlur={updateDatosContrato}/>   
+                <input disabled id={`monto`} name="monto" className="w-8/12 h-[30px] outline-none rounded-xl px-4" type='number' placeholder="Monto" onBlur={updateDatosContrato}/>   
             </div>
 
         </div>

@@ -7,7 +7,7 @@ export const generatePdf =(orderData) => {
 const {datos_generales, datos_proveedor, datos_contrato, datos_tabla} = orderData;
 const {proceso, fecha, tipo, numero, descripcion, modalidad} = datos_generales;
 const {razon, rnc, nombre, domicilio, telefono} = datos_proveedor;
-const {anticipo, forma_de_pago, plazo, monto, moneda} = datos_contrato;
+const {anticipo, forma_de_pago, plazo, moneda} = datos_contrato;
 let subtotal = 0;
 let ITBIS = 0;
 
