@@ -63,7 +63,7 @@ export const OrderItem = (props) => {
             <input name='descripcion' className="outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Descripción" onBlur={updateDatoTabla}/>
             <input name='cantidad' className="outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Cantidad" onBlur={updateDatoTabla}/>
             <input name='unidad' className="outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Unidad" onBlur={updateDatoTabla}/>
-            <input name='precio' className="outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Precio" onBlur={updateDatoTabla}/>
+            <input name='precio' type='number' className="outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="Precio" onBlur={updateDatoTabla}/>
             <input name='itbis' className="outline-none rounded-2xl pl-4 w-[12%] border-secondary border-l-4" placeholder="ITBIS" onBlur={updateDatoTabla}/>
         </div>
     )

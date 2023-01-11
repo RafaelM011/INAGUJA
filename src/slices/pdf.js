@@ -8,28 +8,32 @@ const {datos_generales, datos_proveedor, datos_contrato, datos_tabla} = orderDat
 const {proceso, fecha, tipo, numero, descripcion, modalidad} = datos_generales;
 const {razon, rnc, nombre, domicilio, telefono} = datos_proveedor;
 const {anticipo, forma_de_pago, plazo, monto, moneda} = datos_contrato;
+let subtotal = 0;
+let ITBIS = 0;
 
 const tabla = datos_tabla.map(dato => {
-    const {item, codigo, descripcion, cantidad, unidad, precio, itbis} = dato;
+    const {id, codigo, descripcion, cantidad, unidad, precio} = dato;
+    subtotal += parseFloat(precio);
+    ITBIS += precio*0.18;
     return [
-        {text:item, margin:[0,2.5,0,2.5]},
-        {text:codigo, margin:[0,2.5,0,2.5]},
-        {text:descripcion, alignment:'left', margin:[0,2.5,0,2.5]},
-        {text:cantidad, margin:[0,2.5,0,2.5]},
-        {text:unidad, margin:[0,2.5,0,2.5]},
-        {text:precio, margin:[0,2.5,0,2.5]},
-        {text:itbis, margin:[0,2.5,0,2.5]},
+        {text:id+1, margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:codigo, margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:descripcion, alignment:'left', margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:cantidad, margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:unidad, margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:parseFloat(parseFloat(precio).toFixed(2)).toLocaleString('en-US'), margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:parseFloat(parseFloat(precio*0.18).toFixed(2)).toLocaleString('en-US'), margin:[0,2.5,0,2.5], style: 'font11'},
     ]
 })
 tabla.unshift(
     [
-        {text:"Item", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5]},
-        {text:"Código", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5]},
-        {text:"Descripción", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5]},
-        {text:"Cantidad", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5]},
-        {text:"Unidad", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5]},
-        {text:"Precio", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5]},
-        {text:"ITBIS", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5]},
+        {text:"Item", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:"Código", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:"Descripción", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:"Cantidad", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:"Unidad", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:"Precio", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5], style: 'font11'},
+        {text:"ITBIS", bold:true, color: "#fff", fillColor:'#1155cc', margin:[0,2.5,0,2.5], style: 'font11'},
     ]
 )
 
@@ -59,39 +63,39 @@ const docDefinition = {
                     body:[
                         [{text: 'No. EXPEDIENTE', border: [true,true,true,false], fillColor: '#1155cc', bold: true, color: '#fff'}],
                         [{text: proceso, border: [true,false,true,true], bold: true}],
-                        [{text: [{text: 'Fecha de emisión: ', bold:true}, fecha], border: [false]}]
+                        [{text: [{text: 'Fecha de emisión: ', bold:true}, fecha], border: [false], style: 'font11'}]
                     ]
                 },
                 alignment: 'center'
             }
         ]},
         {text: '\nINDUSTRIA NACIONAL DE LA AGUJA', bold: true, alignment:'center'},
-        {text: tipo + '\n\n', bold: true, alignment:'center'},
-        {text: 'Unidad operativa de Compras y Contrataciones\n\n', alignment:'center'},
-        {text: ['No. Orden: ', {text: numero + "\n\n",bold:true}]},
-        {text: ['Descripción: ', {text: descripcion + "\n\n",bold:true}]},
-        {text: ['Modalidad de compras: ', {text: modalidad + "\n\n",bold:true}]},
+        {text: tipo + '\n\n', bold: true, alignment:'center', style: 'font11'},
+        {text: 'Unidad operativa de Compras y Contrataciones\n\n', alignment:'center', style: 'font11'},
+        {text: ['No. Orden: ', {text: numero + "\n\n",bold:true}], style: 'font11'},
+        {text: ['Descripción: ', {text: descripcion + "\n\n",bold:true}], style: 'font11'},
+        {text: ['Modalidad de compras: ', {text: modalidad + "\n\n",bold:true}], style: 'font11'},
         {table: {
             widths:['*'], 
-            body: [[{text:"Datos del Proveedor", bold:true, color: "#fff", fillColor:'#1155cc', border: [false]}]] 
+            body: [[{text:"Datos del Proveedor", bold:true, color: "#fff", fillColor:'#1155cc', border: [false], style: 'font11'}]] 
         }},
-        {text: ['\nRazón social: ', {text: razon + '\n\n', bold:true}]},
-        {text: ['RNC: ' , {text: rnc + '\n\n', bold:true}]},
-        {text: ['Nombre Comercial: ', {text: nombre + '\n\n', bold:true}]},
-        {text: ['RDomicilio Comercial: ', {text: domicilio + '\n\n', bold:true}]},
-        {text: ['Telefono: ', {text: telefono + '\n\n', bold:true}]},
+        {text: ['\nRazón social: ', {text: razon + '\n\n', bold:true}], style: 'font11'},
+        {text: ['RNC: ' , {text: rnc + '\n\n', bold:true}], style: 'font11'},
+        {text: ['Nombre Comercial: ', {text: nombre + '\n\n', bold:true}], style: 'font11'},
+        {text: ['Domicilio Comercial: ', {text: domicilio + '\n\n', bold:true}], style: 'font11'},
+        {text: ['Telefono: ', {text: telefono + '\n\n', bold:true}], style: 'font11'},
         {table: {
             widths:['*'], 
-            body: [[{text:"Datos Generales del Contrato", bold:true, color: "#fff", fillColor:'#1155cc', border: [false]}]] 
+            body: [[{text:"Datos Generales del Contrato", bold:true, color: "#fff", fillColor:'#1155cc', border: [false], style: 'font11', style: 'font11'}]] 
         }},
-        {text: ['\nAnticipo: ', {text: anticipo + '\n\n', bold:true}]},
-        {text: ['Forma de pago: ', {text: forma_de_pago + '\n\n', bold:true}]},
-        {text: ['Plazo de pago con recepción conforme: ', {text: plazo + '\n\n', bold:true}]},
-        {text: ['Monto Total: ', {text: monto + '\n\n', bold:true}]},
-        {text: ['Moneda: ', {text: moneda + '\n\n', bold:true}]},
+        {text: ['\nAnticipo: ', {text: anticipo + '\n\n', bold:true}], style: 'font11'},
+        {text: ['Forma de pago: ', {text: forma_de_pago + '\n\n', bold:true}], style: 'font11'},
+        {text: ['Plazo de pago con recepción conforme: ', {text: plazo + '\n\n', bold:true}], style: 'font11'},
+        {text: ['Monto Total: ', {text: parseFloat(parseFloat(subtotal + ITBIS).toFixed(2)).toLocaleString('en-US') + '\n\n', bold:true}], style: 'font11'},
+        {text: ['Moneda: ', {text: moneda + '\n\n', bold:true}], style: 'font11'},
         {table: {
             widths:['*'], 
-            body: [[{text:"Detalle", bold:true, color: "#fff", fillColor:'#1155cc', border: [false]}]] 
+            body: [[{text:"Detalle", bold:true, color: "#fff", fillColor:'#1155cc', border: [false], style: 'font11'}]] 
             },
             pageBreak: 'before'
         },
@@ -106,11 +110,11 @@ const docDefinition = {
         {table: {
             widths: ['*','auto'],
             body: [
-                [{text:'Subtotal RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5]}, {text:'10,000.00', bold:true, alignment:'left', margin:[0,2.5,10,2.5]}],
-                [{text:'Total descuento RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5]}, {text:'0.00', alignment:'left', margin:[0,2.5,10,2.5]}],
-                [{text:'Total ITBIS RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5]}, {text:'18,000.00', alignment:'left', margin:[0,2.5,10,2.5]}],
-                [{text:'Total otros impuestos RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5]}, {text:'165,000.00', alignment:'left', margin:[0,2.5,10,2.5]}],
-                [{text:'Total RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5]}, {text:'118,000.00', bold:true, alignment:'left', margin:[0,2.5,10,2.5]}],
+                [{text:'Subtotal RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5], style: 'font11'}, {text: parseFloat(parseFloat(subtotal).toFixed(2)).toLocaleString('en-US'), bold:true, alignment:'left', margin:[0,2.5,10,2.5], style: 'font11'}],
+                [{text:'Total descuento RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5], style: 'font11'}, {text:'0.00', alignment:'left', margin:[0,2.5,10,2.5], style: 'font11'}],
+                [{text:'Total ITBIS RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5], style: 'font11'}, {text: parseFloat(parseFloat(ITBIS).toFixed(2)).toLocaleString('en-US'), alignment:'left', margin:[0,2.5,10,2.5], style: 'font11'}],
+                [{text:'Total otros impuestos RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5], style: 'font11'}, {text:'   0.00', alignment:'left', margin:[0,2.5,10,2.5], style: 'font11'}],
+                [{text:'Total RD$', bold:true, alignment:'right', margin:[0,2.5,0,2.5], style: 'font11'}, {text: parseFloat(parseFloat(subtotal + ITBIS).toFixed(2)).toLocaleString('en-US'), bold:true, alignment:'left', margin:[0,2.5,10,2.5], style: 'font11'}],
             ]
         }}
     ],
@@ -118,36 +122,40 @@ const docDefinition = {
         {
             table: {
                 widths:['*'], 
-                body: [[{text:"FIRMAS RESPONSABLES AUTORIZADOS", bold:true, color: "#fff", fillColor:'#000', border: [false]}]] 
+                body: [[{text:"FIRMAS RESPONSABLES AUTORIZADOS", bold:true, color: "#fff", fillColor:'#000', border: [false], style: 'font11'}]] 
             },
             margin: [20,0]
         },
-        {text:"\n\n\n"},
+        {text:"\n\n"},
         {
             table: {
                 widths:['*',50,'*'], 
                 body: [
-                    [{text: 'FIRMA', bold:true, border: [false,true,false,false], alignment:'center'},{text: '',border: [false]},{text: 'FIRMA', bold:true, border: [false,true,false,false], alignment:'center'}]
+                    [{text: 'Firma', bold:true, border: [false,true,false,false], alignment:'center', style: 'font11'},{text: '',border: [false]},{text: 'Firma', bold:true, border: [false,true,false,false], alignment:'center', style: 'font11'}]
                 ] 
             },
             margin: [20,0]
         },
-        {text:"\n\n\n"},
+        {text:"\n\n"},
         {
             table: {
                 widths:['*',50,'*'], 
                 body: [
-                    [{text: 'Nombre y Apellido', bold:true, border: [false,true,false,false], alignment:'center'},{text: '',border: [false]},{text: 'Nombre y Apellido', bold:true, border: [false,true,false,false], alignment:'center'}]
+                    [{text: 'Nombre y Apellido', bold:true, border: [false,true,false,false], alignment:'center', style: 'font11'},{text: '',border: [false]},{text: 'Nombre y Apellido', bold:true, border: [false,true,false,false], alignment:'center', style: 'font11'}]
                 ] 
             },
             margin: [20,0]
         },
         {text: '\n' + proceso, alignment:'center', fontSize: 10}
     ],
-    images: {
-        logo: './Logo.png'
+    pageMargins: [20,40,20,150],
+    pageSize: 'LETTER',
+    styles: {
+        font11: {fontSize: 11}
     },
-    pageMargins: [20,40,20,190]
+    info: {
+        title: tipo
+    }
 }
 
 pdfMake.createPdf(docDefinition).download();
